@@ -3,51 +3,24 @@ using SchoolHRAdministration;
 
 
 List<IEmployee> employees = [];
-SeedData(employees);
+HRActions.SeedData(employees);
 
 decimal totalSalaries = employees.Sum(e => e.Salary);
-
 Console.WriteLine($"Total Annual Salaries (including bonus) = {totalSalaries}");
 
-static void SeedData(List<IEmployee> employees)
-{
-    employees.Add(new Teacher
-    {
-        Id = 1,
-        FirstName = "Bob",
-        LastName = "Fisher",
-        Salary = 40000
-    });
+// LINQ
+var employeeNames = employees.Where(e => e.Salary > 50000).Select(e => e.LastName).ToList();
+Console.WriteLine($"Employees Making More Than $30,000:");
+foreach (var name in employeeNames) Console.WriteLine($"{name}");
 
-    employees.Add(new Teacher
-    {
-        Id = 2,
-        FirstName = "Jenny",
-        LastName = "Thomas",
-        Salary = 40000
-    });
+// Extension Methods
+string str = "This is a sample paragraph that might be written by a student.  The teacher might ask herself the question, how many words in this paragraph?";
+Console.WriteLine($"Paragraph Word Count = {str.WordCount()}");
 
-    employees.Add(new HeadOfDepartment
-    {
-        Id = 3,
-        FirstName = "Brenda",
-        LastName = "Mullins",
-        Salary = 50000
-    });
+// Delegates
+HRDelegates.hrIntDouble d = HRDelegates.MultiplyNumbers;
 
-    employees.Add(new DeputyHeadMaster
-    {
-        Id = 4,
-        FirstName = "Devlin",
-        LastName = "Brown",
-        Salary = 60000
-    });
+for (int i = 1; i <= 5; i++) Console.WriteLine($"{d(i, 2)}");
 
-    employees.Add(new HeadMaster
-    {
-        Id = 5,
-        FirstName = "Damien",
-        LastName = "Jones",
-        Salary = 80000
-    });
-}
+
+
